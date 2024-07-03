@@ -1,22 +1,25 @@
-from django.shortcuts import render
-from django.views import View
+from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView
 from .models import Profile
 # Create your views here.
 
 
-class HomePageView(View):
-    user_authorized = False
-    access = 0
-    model = Profile
+class HomePageView(TemplateView):
     template_name = 'Main/home.html'
 
-    def get(self, request):
-        current_user = request.user
-        self.user_authorized = current_user.is_authenticated
+    def dispatch(self, request, *args, **kwargs):
+        self.user_authorized = request.user.is_authenticated
         if self.user_authorized:
-            self.access = Profile.objects.filter(user=current_user).first().access
-        return render(request, self.template_name, {'user_authorized': self.user_authorized,
-                                                    'access': self.access})
+            self.profile = get_object_or_404(Profile, user=request.user)
+        else:
+            self.profile = None
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_authorized'] = self.user_authorized
+        context['access'] = self.profile.access if self.profile else 0
+        return context
 
     def post(self, request):
         pass
