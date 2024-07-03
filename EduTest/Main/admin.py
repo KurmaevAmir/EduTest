@@ -22,29 +22,35 @@ class DisciplineAdmin(admin.ModelAdmin):
 class EducationalGroupAdmin(admin.ModelAdmin):
     fields = ['number_group', 'user']
     list_display = ['number_group', 'user']
-    search_fields = ['number_group', 'user']
+    search_fields = ['number_group', 'user__user__first_name', 'user__user__last_name']
 
 
 @admin.register(Option)
 class OptionAdmin(admin.ModelAdmin):
     fields = ['student', 'test', 'questions', 'execution_status']
+    autocomplete_fields = ['questions']
     list_display = ['student', 'test', 'execution_status']
-    search_fields = ['student', 'test']
+    search_fields = ['student__user__first_name', 'student__user__last_name', 'test__name']
 
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['user', 'photo']}),
-        ('Расширенные настройки', {'fields': ['access']})
+        ('Расширенные настройки', {
+            'classes': ['collapse'],
+            'fields': ['access']
+        }
+         )
     ]
     list_display = ['user', 'photo', 'access']
-    search_fields = ['user', 'access']
+    search_fields = ['access', 'user__first_name', 'user__last_name']
 
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     fields = ['question', 'answers', 'score']
+    autocomplete_fields = ['answers']
     list_display = ['question', 'score']
     search_fields = ['question']
 
@@ -52,19 +58,22 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(TestAnswer)
 class TestAnswerAdmin(admin.ModelAdmin):
     fields = ['option_question_number', 'test', 'question', 'user_answer', 'score']
+    autocomplete_fields = ['question']
     list_display = ['option_question_number', 'test', 'question', 'user_answer', 'score']
-    search_fields = ['option_question_number', 'test', 'question']
+    search_fields = ['option_question_number', 'test__name', 'question__question']
 
 
 @admin.register(TestResult)
 class TestResultAdmin(admin.ModelAdmin):
     fields = ['option', 'discipline', 'lead_time', 'test_percentage', 'score']
     list_display = ['option', 'discipline', 'lead_time', 'test_percentage', 'score']
-    search_fields = ['option', 'discipline']
+    search_fields = ['option__student__user__first_name', 'option__student__user__last_name', 'discipline__name',
+                     'test_percentage', 'score']
 
 
 @admin.register(Test)
 class TestAdmin(admin.ModelAdmin):
     fields = ['name', 'questions', 'discipline', 'teacher', 'lead_time', 'max_score']
+    autocomplete_fields = ['questions']
     list_display = ['name', 'discipline', 'teacher', 'max_score']
-    search_fields = ['name', 'discipline', 'teacher']
+    search_fields = ['name', 'discipline__name', 'teacher__user__first_name', 'teacher__user__last_name']
