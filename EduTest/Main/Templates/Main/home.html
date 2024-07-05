@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTest</title>
+    <link rel="stylesheet" href="{% static 'Main/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'Main/mini-icon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <div class="logo-title">
+            <img src="{% static 'Main/header.png' %}" alt="Лого" class="header-logo">
+            <span class="header-text">EduTest</span>
+        </div>
+        <div id="userLinks" class="user-links">
+            <!-- Ссылки для пользователя будут добавлены здесь с помощью JavaScript -->
+        </div>
+        <div id="userProfile">
+            <button id="loginButton" class="btn btn-outline-light btn-sm">Вход</button>
+            <img id="userAvatar" src="{% static 'Main/profileIcon-image.png' %}" alt="User Avatar" class="user-avatar">
+        </div>
+    </div>
+</div>
+
+<div class="info-layer" id="infoLayer">
+    <div class="info-text">
+        <h2>Добро пожаловать!</h2>
+        <p>Мы рады предоставить студентам и преподавателям удобные и эффективные инструменты для онлайн тестирования</p>
+        <button id="learnMoreButton" class="btn btn-outline-primary">Узнать больше</button>
+    </div>
+</div>
+
+<div class="content">
+    <img src="{% static 'Main/girlSiting-image.png' %}" alt="Center Image" class="content-image">
+    <div class="about" id="about">
+        <h2>О нас</h2>
+        <p>EduTest - это образовательный проект, предоставляющий студентам и преподавателям удобные и эффективные
+            инструменты для онлайн тестирования. Наша платформа предлагает простой и интуитивно понятный интерфейс,
+            который позволяет преподавателям создавать свои тесты, а студентам - проходить их.</p>
+        <h3>Наши преимущества</h3>
+        <ul>
+            <li>Интуитивно понятный интерфейс</li>
+            <li>Удобные инструменты для создания тестов</li>
+            <li>Эффективная система управления тестированием</li>
+            <li>Возможность анализировать результаты</li>
+        </ul>
+        <p>Присоединяйтесь к нам, чтобы сделать процесс тестирования проще и удобнее.</p>
+    </div>
+</div>
+
+<div class="footer" id="footer">
+    <h6>2024 OOO "EduTest"</h6>
+</div>
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Авторизация</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginUsername">Электронная почта</label>
+                        <input type="text" class="form-control" id="loginUsername"
+                               placeholder="Введите электронную почту" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль</label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Введите пароль"
+                               required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="loginSubmit">Войти</button>
+            </div>
+            <div class="text-center mt-3">
+                <p>Нет аккаунта? <a href="#" id="registerLink">Создать</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно регистрации -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerName">Имя</label>
+                        <input type="text" class="form-control" id="registerName" placeholder="Введите ваше имя"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerSurname">Фамилия</label>
+                        <input type="text" class="form-control" id="registerSurname" placeholder="Введите вашу фамилию"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" class="form-control" id="registerEmail" placeholder="Введите ваш email"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerGroup">Номер образовательной группы</label>
+                        <input type="text" class="form-control" id="registerGroup" placeholder="Введите номер группы"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Пароль</label>
+                        <input type="password" class="form-control" id="registerPassword" placeholder="Введите пароль"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Подтверждение пароля</label>
+                        <input type="password" class="form-control" id="registerConfirmPassword"
+                               placeholder="Подтвердите пароль" required>
+                        <span id="passwordMatch" style="color: red;"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="registerSubmit">Зарегистрироваться</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        // Открытие модального окна авторизации
+        $('#loginButton').click(function () {
+            $('#loginModal').modal('show');
+        });
+
+
+        // Открытие модального окна регистрации
+        $('#registerLink').click(function (event) {
+            event.preventDefault();
+            $('#loginModal').modal('hide');
+            $('#registerModal').modal('show');
+        });
+
+        // Закрытие модального окна авторизации
+        $('#loginModal').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset(); // Сброс формы
+        });
+
+        // Закрытие модального окна регистрации
+        $('#registerModal').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset(); // Сброс формы
+        });
+        $('#loginSubmit').click(function () {
+            if (validateForm('loginForm')) {
+                ///
+            }
+        });
+
+        // Проверка формы регистрации при нажатии на кнопку "Зарегистрироваться"
+        $('#registerSubmit').click(function () {
+            if (validateForm('registerForm')) {
+                ///
+            }
+        });
+        $('#registerSubmit').click(function () {
+            if (validateForm('registerForm')) {
+                const password = document.getElementById('registerPassword').value.trim();
+                const confirmPassword = document.getElementById('registerConfirmPassword').value.trim();
+
+                if (password !== confirmPassword) {
+                    document.getElementById('passwordMatch').textContent = 'Пароли не совпадают';
+                    return false; // Останавливаем отправку формы из-за несовпадения паролей
+                } else {
+                    document.getElementById('passwordMatch').textContent = ''; // Очищаем сообщение об ошибке
+                }
+                // Дополнительные действия при успешной валидации формы
+            }
+        })
+
+        function validateForm(formId) {
+            const form = document.getElementById(formId);
+            const inputs = form.getElementsByTagName('input');
+            let valid = true;
+            for (let input of inputs) {
+                if (!input.value.trim()) { // Учитываем, что строка может содержать только пробелы
+                    input.classList.add('blink');
+                    valid = false;
+                    setTimeout(() => {
+                        input.classList.remove('blink');
+                    }, 1000);
+                }
+            }
+            return valid;
+        }
+
+        document.getElementById('learnMoreButton').addEventListener('click', function () {
+            document.getElementById('about').scrollIntoView({behavior: 'smooth'}); // Прокрутка до раздела "О нас"
+        });
+
+        $('#userLinks').on('click', 'a[href="#"]', function (event) {
+            event.preventDefault();
+        });
+
+        $('#userLinks').on('click', 'a.constructor-link', function (event) {
+            event.preventDefault();
+        });
+
+        function fetchUserDataAndSetLinks() {
+            // Получение данных от Django-бэкенда
+            const userAuthorized = {{ user_authorized|yesno:"true,false" }};
+            const userAccessLevel = {{ access }};
+
+            const userLinks = document.getElementById('userLinks');
+            userLinks.innerHTML = '';
+
+            // Устанавливаем ссылки в зависимости от уровня доступа
+            if (userAccessLevel >= 1) {
+                const testsLink = document.createElement('a');
+                testsLink.href = '#';
+                testsLink.innerText = 'Тесты';
+                testsLink.style.display = 'inline-block';
+                userLinks.appendChild(testsLink);
+            }
+
+            if (userAccessLevel >= 2) {
+                const constructorLink = document.createElement('a');
+                constructorLink.href = '#';
+                constructorLink.innerText = 'Конструктор';
+                constructorLink.classList.add('constructor-link');
+                constructorLink.style.display = 'inline-block';
+                userLinks.appendChild(constructorLink);
+            }
+
+            const loginButton = document.getElementById('loginButton');
+            const userAvatar = document.getElementById('userAvatar');
+            if (userAuthorized) {
+                loginButton.style.display = 'none';
+                userAvatar.style.display = 'inline-block';
+            } else {
+                loginButton.style.display = 'inline-block';
+                userAvatar.style.display = 'none';
+            }
+        }
+
+        fetchUserDataAndSetLinks();
+    });
+
+</script>
+</body>
+</html>
