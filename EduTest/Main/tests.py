@@ -496,24 +496,35 @@ class EducationalGroupModelTest(TestCase):
 
 
 class HomePageViewTests(TestCase):
+    # preset for testing
     def setUp(self):
+        # creating a user and profile
         self.user = User.objects.create_user(username='testuser', password='testuserhomepage')
         self.profile = Profile.objects.create(user=self.user, access=2)
 
+    # testing the home page with an authorized user
     def test_home_view_with_authenticated_user(self):
+        # user authorization
         self.client.login(username='testuser', password='testuserhomepage')
 
+        # getting a response from the home page URL
         response = self.client.get(reverse('Main:home'))
 
+        # checking page code status
         self.assertEqual(response.status_code, 200)
 
+        # context checking
         self.assertTrue(response.context['user_authorized'])
         self.assertEqual(response.context['access'], 2)
 
+    # testing the home page with an unauthorized user
     def test_home_view_with_unauthorized_user(self):
+        # getting a response from the home page URL
         response = self.client.get(reverse('Main:home'))
 
+        # checking page code status
         self.assertEqual(response.status_code, 200)
 
+        # context checking
         self.assertFalse(response.context['user_authorized'])
         self.assertEqual(response.context['access'], 0)

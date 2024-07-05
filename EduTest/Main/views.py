@@ -22,4 +22,5 @@ class HomePageView(TemplateView):
         return context
 
     def post(self, request):
+        # preparation for implementation of registration/authorization
         pass
