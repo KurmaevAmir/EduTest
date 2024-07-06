@@ -46,8 +46,7 @@ class Profile(models.Model):
                 (2, "Преподаватель"),
                 (3, "Администратор"), ]
     user = models.OneToOneField(User, related_name='profile',verbose_name="пользователь",  on_delete=models.CASCADE)
-    photo = models.ImageField(verbose_name="фотография профиля", upload_to='photos/%Y/%m/%d/')
-    access = models.IntegerField(verbose_name="доступ", choices=ACCESSES, default=1)
+    photo = models.ImageField(verbose_name="фотография профиля", upload_to='photos/%Y/%m/%d/', blank=True)
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
@@ -59,7 +58,7 @@ class Profile(models.Model):
 
 class Test(models.Model):
     name = models.CharField(verbose_name="название", max_length=150)
-    questions = models.ManyToManyField(Question, verbose_name="вопросы")
+    questions = models.ManyToManyField(Question, verbose_name="вопросы", blank=True)
     lead_time = models.TimeField(verbose_name="время выполнения")
     max_score = models.IntegerField(verbose_name="количество баллов", default=0)
     discipline = models.ForeignKey(Discipline, verbose_name="дисциплина", on_delete=models.CASCADE)

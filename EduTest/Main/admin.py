@@ -37,14 +37,9 @@ class OptionAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['user', 'photo']}),
-        ('Расширенные настройки', {
-            'classes': ['collapse'],
-            'fields': ['access']
-        }
-         )
     ]
-    list_display = ['user', 'photo', 'access']
-    search_fields = ['access', 'user__first_name', 'user__last_name']
+    list_display = ['user', 'photo']
+    search_fields = ['user__first_name', 'user__last_name']
 
 
 @admin.register(Question)
