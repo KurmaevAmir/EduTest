@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post">
+{#    {% csrf_token %}#}
+{#    <h2>Question</h2>#}
+{#    {{ question_form.as_p }}#}
+{#    <h2>Answers</h2>#}
+{#    {% for form in answer_forms %}#}
+{#        {{ form.as_p }}#}
+{#    {% endfor %}#}
+{#    <button type="submit">Далее</button>#}
+    {% csrf_token %}
+    <h2>Question</h2>
+        {{ question_form.as_p }}
+        <h2>Answers</h2>
+        {{ answer_formset.management_form }}
+        {% for form in answer_formset %}
+            {{ form.as_p }}
+        {% endfor %}
+    <button type="submit">Далее</button>
+</form>
+</body>
+</html>

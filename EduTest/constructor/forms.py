@@ -21,3 +21,4 @@ class AnswerForm(ModelForm):
 
 
 AnswerFormSet = modelformset_factory(Answer, form=AnswerForm, extra=4)
+AnswerUpdateFormSet = modelformset_factory(Answer, form=AnswerForm, can_delete=True, extra=0)

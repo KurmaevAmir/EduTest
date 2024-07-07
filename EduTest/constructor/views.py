@@ -3,8 +3,9 @@ from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.http import HttpResponseNotFound
 from django.urls import reverse
 from django.views.generic import CreateView, UpdateView, View
-from Main.models import Test, Answer
-from .forms import TestForm, QuestionForm, AnswerFormSet
+from Main.models import Test, Answer, Question
+from .forms import TestForm, QuestionForm, AnswerFormSet, AnswerUpdateFormSet
+
 
 # Create your views here.
 
@@ -43,7 +44,11 @@ class TestUpdateView(UpdateView, LoginRequiredMixin, UserAccessMixin):
 
     def get_success_url(self):
         pk = self.object.pk
-        return reverse('constructor:question', kwargs={'pk': pk, 'number': 1})
+        questions = list(self.object.questions.values_list('id', flat=True))
+        self.request.session['remaining_questions'] = questions
+        self.request.session['changed_questions'] = []
+        self.request.session.modified = True
+        return reverse('constructor:question_update', kwargs={'pk_test': pk, 'pk_question': questions[0]})
 
 
 class QuestionCreateView(View, LoginRequiredMixin, UserAccessMixin):
@@ -51,7 +56,7 @@ class QuestionCreateView(View, LoginRequiredMixin, UserAccessMixin):
 
     def get(self, request, pk, number):
         test = get_object_or_404(Test, pk=pk)
-        question_form = QuestionForm
+        question_form = QuestionForm()
         answer_formset = AnswerFormSet(queryset=Answer.objects.none())
         return render(request, self.template_name, {
             'test': test,
@@ -77,4 +82,49 @@ class QuestionCreateView(View, LoginRequiredMixin, UserAccessMixin):
             'test': test,
             'question_form': question_form,
             'answer_formset': answer_formset,
+        })
+
+
+class QuestionUpdateView(View, LoginRequiredMixin, UserAccessMixin):
+    template_name = 'constructor/question_update.html'
+
+    def get(self, request, pk_test, pk_question):
+        test = get_object_or_404(Test, pk=pk_test)
+        question = get_object_or_404(Question, pk=pk_question)
+        question_form = QuestionForm(instance=question)
+        answer_formset = AnswerUpdateFormSet(queryset=question.answers.all())
+        return render(request, self.template_name, {
+            'test': test,
+            'question_form': question_form,
+            'answer_formset': answer_formset,
+            'question': question,
+        })
+
+    def post(self, request, pk_test, pk_question):
+        test = get_object_or_404(Test, pk=pk_test)
+        question = get_object_or_404(Question, pk=pk_question)
+        question_form = QuestionForm(request.POST, instance=question)
+        answer_formset = AnswerUpdateFormSet(request.POST, queryset=question.answers.all())
+        if question_form.is_valid() and answer_formset.is_valid():
+            question_form.save()
+            for form in answer_formset:
+                if form.cleaned_data.get('DELETE'):
+                    form.instance.delete()
+                else:
+                    answer = form.save(commit=False)
+                    answer.save()
+            question.save()
+            request.session['changed_questions'].append(pk_question)
+            request.session['remaining_questions'].remove(pk_question)
+            request.session.modified = True
+            if request.session['remaining_questions']:
+                next_question_id = request.session['remaining_questions'][0]
+                return redirect('constructor:question_update', pk_test=pk_test, pk_question=next_question_id)
+            # temporary stub
+            return redirect('constructor:test_update', pk=pk_test)
+        return render(request, self.template_name, {
+            'test': test,
+            'question_form': question_form,
+            'answer_formset': answer_formset,
+            'question': question,
         })
