@@ -1,22 +1,24 @@
 import random
 
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, DetailView, FormView
 from .models import Profile, Test, Option, TestAnswer, Answer, TestResult
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from .forms import AnswerForm, TestAssignmentSelectForm
+from .forms import AnswerForm, TestAssignmentSelectForm, LoginForm
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from constructor.views import UserAccessMixin
-
-
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 # Create your views here.
 
 
-class HomePageView(TemplateView):
+class HomePageView(FormView):
     template_name = 'Main/home.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('Main:home')
 
     def dispatch(self, request, *args, **kwargs):
         self.user_authorized = request.user.is_authenticated
@@ -34,8 +36,21 @@ class HomePageView(TemplateView):
             name__in=['Студент']).exists() else 0
         return context
 
-    def post(self, request):
-        pass
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        try:
+            user = User.objects.get(email=email)
+            user_authenticate = authenticate(username=user.username, password=password)
+            if user_authenticate is not None:
+                login(self.request, user_authenticate)
+                next_url = self.request.GET.get('next', self.success_url)
+                return redirect(next_url)
+            else:
+                form.add_error(None, "Неверный пароль. Пожалуйста, попробуйте снова.")
+        except User.DoesNotExist:
+            form.add_error('email', "Пользователь с таким email не найден.")
+        return self.form_invalid(form)
 
 
 def login_required_decorator(view_class):
