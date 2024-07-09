@@ -1,13 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTest</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="shortcut icon" href='{% static 'Main/mini-icon.png' %}' type="image/x-icon">
+    <link rel="stylesheet" href='{% static 'Main/test_assignment_createStyles.css' %}'>
 </head>
 <body>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="form-grid">
+        {% for field in form %}
+            <div class="form-label">{{ field.label_tag }}</div>
+            <div class="form-field">{{ field }}</div>
+        {% endfor %}
+    </div>
     <button type="submit">Выбрать</button>
 </form>
 </body>

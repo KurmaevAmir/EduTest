@@ -1,20 +1,74 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTest</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="shortcut icon" href='{% static 'Main/mini-icon.png' %}' type="image/x-icon">
+    <link rel="stylesheet" href='{% static 'Main/test_resultStyles.css' %}'>
 </head>
 <body>
-<h1>Результаты теста: {{ option.test.name }}</h1>
-<p>Студент: {{ student }}</p>
-<p>Преподаватель: {{ teacher }}</p>
-<p>Время выполнения: {{ option.test.lead_time }}</p>
-<p>Количество набранных баллов: {{ total_score }} / {{ max_score }}</p>
-<p>Процент выполнения: {{ test_percentage }}%</p>
-<ul>
-    {% for answer in test_answers %}
-        <li>Вопрос {{ answer.option_question_number }}: {{ answer.user_answer }} (Баллы: {{ answer.score }})</li>
-    {% endfor %}
-</ul>
+<div class="header">
+    <div class="logo-title">
+        <img src="{% static 'Main/header.png' %}" alt="Лого" class="header-logo">
+        <a href="{% url 'Main:home' %}">
+            <span class="header-text">EduTest</span>
+        </a>
+    </div>
+    <div class="user-links">
+        <a href="#" id="testsLink">Тесты</a>
+        <a href="{% url 'constructor:test_create' %}" id="constructorLink" class="constructor-link">Конструктор</a>
+    </div>
+    <a href="#">
+        <img id="userAvatar" src="{% static 'Main/profileIcon-image.png' %}" alt="User Avatar" class="user-avatar">
+    </a>
+</div>
+<div class="results-container">
+    <h1>Результаты теста: {{ option.test.name }}</h1>
+    <p>Студент: {{ student }}</p>
+    <p>Преподаватель: {{ teacher }}</p>
+    <p>Время выполнения: {{ option.test.lead_time }}</p>
+    <p>Количество набранных баллов: {{ total_score }} / {{ max_score }}</p>
+    <p>Процент выполнения: {{ test_percentage }}%</p>
+    <table class="results-table">
+        <thead>
+        <tr>
+            <th>Вопрос</th>
+            <th>Ответ</th>
+            <th>Баллы</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for answer in test_answers %}
+            <tr>
+                <td>Вопрос {{ answer.option_question_number }}</td>
+                <td>{{ answer.user_answer }}</td>
+                <td>{{ answer.score }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    function fetchUserDataAndSetLinks() {
+        const userAccessLevel = {{ access }};
+
+        const testsLink = document.getElementById('testsLink');
+        const constructorLink = document.getElementById('constructorLink');
+
+        testsLink.style.display = 'inline-block';
+
+        if (userAccessLevel >= 2) {
+            constructorLink.style.display = 'inline-block';
+        } else {
+            constructorLink.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchUserDataAndSetLinks);
+</script>
 </body>
 </html>

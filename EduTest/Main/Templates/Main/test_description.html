@@ -1,21 +1,73 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTest</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="shortcut icon" href='{% static 'Main/mini-icon.png' %}' type="image/x-icon">
+    <link rel="stylesheet" href='{% static 'Main/test_desciptionStyles.css' %}'>
 </head>
 <body>
+<div class="header">
+    <div class="logo-title">
+        <a href="{% url 'Main:home' %}" class="header-link">
+            <img src="{% static 'Main/header.png' %}" alt="Лого" class="header-logo">
+            <span class="header-text">EduTest</span>
+        </a>
+    </div>
+    <div class="user-links">
+        <a href="#" id="testsLink">Тесты</a>
+        <a href="{% url 'constructor:test_create' %}" id="constructorLink" class="constructor-link">Конструктор</a>
+    </div>
+    <a href="#">
+        <img id="userAvatar" src="{% static 'Main/profileIcon-image.png' %}" alt="User Avatar" class="user-avatar">
+    </a>
+</div>
+<div id="test-info">
     {% if access == 2 %}
-        <button type="button"><a href="/test/assign/create/{{ test.id }}/">Выдать тест</a></button>
+        <div class="button-container">
+            <button type="button" class="btn btn-primary btn-send">
+                <a href="/test/assign/create/{{ test.id }}/">Выдать тест</a>
+            </button>
+        </div>
     {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" id="startButton" class="btn btn-primary btn-start">Начать тестирование</button>
+    </form>
     <h1>{{ test.name }}</h1>
     <p>Дисциплина: {{ test.discipline.name }}</p>
     <p>Время выполнения: {{ test.lead_time }}</p>
-    <p>Максимальное колличество баллов: {{ test.max_score }}</p>
+    <p>Максимальное количество баллов: {{ test.max_score }}</p>
     <p>Преподаватель: {{ test.teacher }}</p>
-    <form method="post">
-    {% csrf_token %}
-    <button type="submit">Начать тестирование</button>
-    </form>
+</div>
+
+<script>
+    function fetchUserDataAndSetLinks() {
+        const userAccessLevel = {{ access }};
+
+        const testsLink = document.getElementById('testsLink');
+        const constructorLink = document.getElementById('constructorLink');
+        const startButton = document.getElementById('startButton');
+
+        testsLink.style.display = 'inline-block';
+
+        if (userAccessLevel >= 2) {
+            constructorLink.style.display = 'inline-block';
+        } else {
+            constructorLink.style.display = 'none';
+        }
+        if (userAccessLevel >= 1) {
+            startButton.style.display = 'inline-block';
+        } else {
+            startButton.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchUserDataAndSetLinks);
+</script>
 </body>
 </html>
