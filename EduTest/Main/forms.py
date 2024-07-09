@@ -24,3 +24,8 @@ class TestAssignmentSelectForm(forms.Form):
         required=False,
         label='Выберите группы'
     )
+
+
+class LoginForm(forms.Form):
+    email = forms.CharField(label='Электронная почта')
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)

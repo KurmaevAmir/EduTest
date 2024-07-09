@@ -6,12 +6,12 @@ from django.views.generic import TemplateView, DetailView, FormView
 from .models import Profile, Test, Option, TestAnswer, Answer, TestResult
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from .forms import AnswerForm, TestAssignmentSelectForm
+from .forms import AnswerForm, TestAssignmentSelectForm, LoginForm
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from constructor.views import UserAccessMixin
-
-
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 # Create your views here.
 
 
