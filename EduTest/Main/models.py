@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 # Create your models here.
@@ -77,6 +78,7 @@ class Option(models.Model):
     test = models.ForeignKey(Test, verbose_name="тест", on_delete=models.CASCADE)
     questions = models.ManyToManyField(Question, verbose_name="вопросы")
     execution_status = models.BooleanField(verbose_name="статус выполнения", default=False)
+    start_time = models.DateTimeField(verbose_name='время начала', default=timezone.now)
 
     def __str__(self):
         return str(self.id) + " " + str(self.student.user.first_name) + " " + str(
@@ -102,17 +104,18 @@ class TestResult(models.Model):
     class Meta:
         verbose_name = 'результат теста'
         verbose_name_plural = 'результаты тестов'
+        unique_together = ('option', 'discipline')
 
 
 class TestAnswer(models.Model):
     question = models.ForeignKey(Question, verbose_name="вопрос", on_delete=models.CASCADE)
     user_answer = models.CharField(verbose_name="ответ студента", max_length=150)
     score = models.IntegerField(verbose_name="количество баллов", default=0)
-    test = models.ForeignKey(Test, verbose_name="тест", on_delete=models.CASCADE)
+    option = models.ForeignKey(Option, verbose_name="вариант", on_delete=models.CASCADE)
     option_question_number = models.IntegerField(verbose_name="номер вопроса в варианте", default=1)
 
     def __str__(self):
-        return str(self.option_question_number) + " " + self.test.name
+        return str(self.option_question_number) + " " + self.option.test.name
 
     class Meta:
         verbose_name = 'ответ на вопрос'
@@ -121,10 +124,10 @@ class TestAnswer(models.Model):
 
 class EducationalGroup(models.Model):
     number_group = models.CharField(verbose_name="номер группы", max_length=50)
-    user = models.ForeignKey(Profile, verbose_name="студент", on_delete=models.CASCADE)
+    user = models.ManyToManyField(Profile, verbose_name="студент")
 
     def __str__(self):
-        return str(self.user) + " - " + self.number_group
+        return self.number_group
 
     class Meta:
         verbose_name = 'образовательную группу'

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if access == 2 %}
+        <button type="button"><a href="/test/assign/create/{{ test.id }}/">Выдать тест</a></button>
+    {% endif %}
+    <h1>{{ test.name }}</h1>
+    <p>Дисциплина: {{ test.discipline.name }}</p>
+    <p>Время выполнения: {{ test.lead_time }}</p>
+    <p>Максимальное колличество баллов: {{ test.max_score }}</p>
+    <p>Преподаватель: {{ test.teacher }}</p>
+    <form method="post">
+    {% csrf_token %}
+    <button type="submit">Начать тестирование</button>
+    </form>
+</body>
+</html>
