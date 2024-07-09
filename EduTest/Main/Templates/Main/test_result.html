@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Результаты теста: {{ option.test.name }}</h1>
+<p>Студент: {{ student }}</p>
+<p>Преподаватель: {{ teacher }}</p>
+<p>Время выполнения: {{ option.test.lead_time }}</p>
+<p>Количество набранных баллов: {{ total_score }} / {{ max_score }}</p>
+<p>Процент выполнения: {{ test_percentage }}%</p>
+<ul>
+    {% for answer in test_answers %}
+        <li>Вопрос {{ answer.option_question_number }}: {{ answer.user_answer }} (Баллы: {{ answer.score }})</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

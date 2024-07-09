@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{{ option.test.name }}</h1>
+<p>Вопрос {{ current_question_number }} из {{ total_questions }}</p>
+<form method="post">
+    {% csrf_token %}
+    <p>{{ question.question }}</p>
+    {% for answer in answers %}
+        <div>
+            <input type="radio" id="answer_{{ answer.id }}" name="user_answer" value="{{ answer.id }}">
+            <label for="answer_{{ answer.id }}">{{ answer.possible_answer }}</label>
+        </div>
+    {% endfor %}
+    <button type="submit">Ответить</button>
+</form>
+<p>Оставшееся время: {{ remaining_time }}</p>
+</body>
+</html>

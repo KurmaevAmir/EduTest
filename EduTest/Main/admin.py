@@ -21,8 +21,8 @@ class DisciplineAdmin(admin.ModelAdmin):
 @admin.register(EducationalGroup)
 class EducationalGroupAdmin(admin.ModelAdmin):
     fields = ['number_group', 'user']
-    list_display = ['number_group', 'user']
-    search_fields = ['number_group', 'user__user__first_name', 'user__user__last_name']
+    list_display = ['number_group']
+    search_fields = ['number_group']
 
 
 @admin.register(Option)
@@ -52,10 +52,10 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(TestAnswer)
 class TestAnswerAdmin(admin.ModelAdmin):
-    fields = ['option_question_number', 'test', 'question', 'user_answer', 'score']
+    fields = ['option_question_number', 'option', 'question', 'user_answer', 'score']
     autocomplete_fields = ['question']
-    list_display = ['option_question_number', 'test', 'question', 'user_answer', 'score']
-    search_fields = ['option_question_number', 'test__name', 'question__question']
+    list_display = ['option_question_number', 'option', 'question', 'user_answer', 'score']
+    search_fields = ['option_question_number', 'option__test__name', 'question__question']
 
 
 @admin.register(TestResult)
