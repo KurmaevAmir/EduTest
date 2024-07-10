@@ -246,3 +246,46 @@ class TestListView(UserAccessMixin, ListView):
     model = Test
     template_name = 'Main/test_list.html'
     context_object_name = 'tests'
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileView(DetailView):
+    template_name = 'Main/profile.html'
+
+    def get(self, request, *args, **kwargs):
+        profile = Profile.objects.get(user=request.user)
+        profile_form = ProfileForm(instance=profile)
+        password_form = ChangePasswordForm(user=request.user)
+        context = {
+            'profile_form': profile_form,
+            'password_form': password_form
+        }
+        if profile.user.groups.filter(name__in=['Студент']):
+            context['tests'] = TestResult.objects.filter(option__student=profile)
+        elif profile.user.groups.filter(name__in=['Преподаватель', 'Администратор']).exists():
+            context['tests'] = Test.objects.filter(teacher=profile)
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        profile = Profile.objects.get(user=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+        password_form = ChangePasswordForm(user=request.user, data=request.POST)
+        if 'save_profile' in request.POST:
+            if profile_form.is_valid():
+                profile_form.save()
+                print("Profile data saved successfully!")
+            else:
+                print("Profile form errors:", profile_form.errors)
+        if 'change_password' in request.POST and password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)
+            return redirect('Main:home')
+        context = {
+            'profile_form': profile_form,
+            'password_form': password_form
+        }
+        if profile.user.groups.filter(name__in=['Студент']):
+            context['tests'] = TestResult.objects.filter(option__student=profile)
+        elif profile.user.groups.filter(name__in=['Преподаватель', 'Администратор']).exists():
+            context['tests'] = Test.objects.filter(teacher=profile)
+        return render(request, self.template_name, context)
