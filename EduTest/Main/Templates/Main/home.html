@@ -25,7 +25,10 @@
         </div>
         <div id="userProfile">
             <button id="loginButton" class="btn btn-outline-light btn-sm">Вход</button>
-            <img id="userAvatar" src="{% static 'Main/profileIcon-image.png' %}" alt="User Avatar" class="user-avatar">
+            <a href={% url 'Main:profile' %} }>
+                <img id="userAvatar" src="{% static 'Main/profileIcon-image.png' %}" alt="User Avatar"
+                     class="user-avatar">
+            </a>
         </div>
     </div>
 </div>
@@ -136,6 +139,7 @@
         function fetchUserDataAndSetLinks() {
             // Получение данных от Django-бэкенда
             const userAuthorized = {{ user_authorized|yesno:"true,false" }};
+            {#const avatarUrl = '{{ profile.photo.url }}';#}
             const userAccessLevel = {{ access }};
 
             const userLinks = document.getElementById('userLinks');
@@ -166,6 +170,8 @@
             if (userAuthorized) {
                 loginButton.style.display = 'none';
                 userAvatar.style.display = 'inline-block';
+                 {#if (avatarUrl)#}
+                 {#   userAvatar.src = avatarUrl;#}
             } else {
                 loginButton.style.display = 'inline-block';
                 userAvatar.style.display = 'none';

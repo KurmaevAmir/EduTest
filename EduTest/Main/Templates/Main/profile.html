@@ -1,74 +1,138 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTest</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="shortcut icon" href="{% static 'constructor/mini-icon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'Main/profileStyles.css' %}">
 </head>
 <body>
-{{ success_save_profile }}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ profile_form.as_p }}
-    <button type="submit" name="save_profile">Сохранить</button>
-</form>
-{% if password_form.errors %}
-    <ul>
-        {% for field, errors in password_form.erros.items %}
-            {% for error in errors %}
-                <li>{{ error }}</li>
+    <div class="header">
+        <div class="container header-content">
+            <div class="logo-title">
+                <img src="{% static 'constructor/header.png' %}" alt="Лого" class="header-logo">
+                <a href={% url 'Main:home' %}>
+                    <span class="header-text">EduTest</span>
+                </a>
+            </div>
+            <div class="user-links">
+                {% if access != 1 %}
+                    <a href={% url 'constructor:test_create' %}>Конструктор</a>
+                {% endif %}
+            </div>
+            <a href={% url 'Main:profile' %}>
+                <img id="userAvatar" src="{% static 'constructor/profileIcon-image.png' %}" alt="User Avatar"
+                     class="user-avatar">
+            </a>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 90px">
+        {{ success_save_profile }}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in profile_form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
             {% endfor %}
-        {% endfor %}
-    </ul>
-{% endif %}
-<form method="post">
-    {% csrf_token %}
-    {{ password_form.as_p }}
-    <button type="submit" name="change_password">Сменить пароль</button>
-</form>
-<table>
-    {% if profile.user.groups.name == 'Студент' %}
-        <thead>
-        <tr>
-            <th>Название теста</th>
-            <th>Начало выполнения</th>
-            <th>Дисциплина</th>
-            <th>Преподаватель</th>
-            <th>Баллы</th>
-            <th>Время выполнения</th>
-            <th>Процент выполнения</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            {% for test in tests %}
-                <td><a href="{% url 'Main:test_description' test.pk %}">{{ test.option.test.name }}</a></td>
-                <td>{{ test.option.start_time }}</td>
-                <td>{{ test.discipline.name }}</td>
-                <td>{{ test.option.test.teacher.user.get_full_name }}</td>
-                <td>{{ test.score }}</td>
-                <td>{{ test.lead_time }}</td>
-                <td>{{ test.test_percentage }}</td>
+            <button type="submit" name="save_profile">Сохранить</button>
+        </form>
+
+        {% if password_form.errors %}
+            <ul>
+                {% for field, errors in password_form.errors.items %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {% for field in password_form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
             {% endfor %}
-        </tr>
-        </tbody>
-    {% else %}
-        <thead>
-        <tr>
-            <th>Название теста</th>
-            <th>Вопросы</th>
-            <th>Дисциплина</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for test in tests %}
-            <tr>
-                <td><a href="{% url 'Main:test_description' test.pk %}">{{ test.name }}</a></td>
-                <td>{{ test.questions.all|join:" " }}</td>
-                <td>{{ test.discipline.name }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    {% endif %}
-</table>
+            <button type="submit" name="change_password">Сменить пароль</button>
+        </form>
+
+        <table>
+            {% if profile.user.groups.name == 'Студент' %}
+                <thead>
+                    <tr>
+                        <th>Название теста</th>
+                        <th>Начало выполнения</th>
+                        <th>Дисциплина</th>
+                        <th>Преподаватель</th>
+                        <th>Баллы</th>
+                        <th>Время выполнения</th>
+                        <th>Процент выполнения</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for test in tests %}
+                        <tr>
+                            <td><a href="{% url 'Main:test_description' test.pk %}">{{ test.option.test.name }}</a></td>
+                            <td>{{ test.option.start_time }}</td>
+                            <td>{{ test.discipline.name }}</td>
+                            <td>{{ test.option.test.teacher.user.get_full_name }}</td>
+                            <td>{{ test.score }}</td>
+                            <td>{{ test.lead_time }}</td>
+                            <td>{{ test.test_percentage }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% else %}
+                <thead>
+                    <tr>
+                        <th>Название теста</th>
+                        <th>Вопросы</th>
+                        <th>Дисциплина</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for test in tests %}
+                        <tr>
+                            <td><a href="{% url 'Main:test_description' test.pk %}">{{ test.name }}</a></td>
+                            <td>{{ test.questions.all|join:" " }}</td>
+                            <td>{{ test.discipline.name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% endif %}
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userAccessLevel = {{ access }};
+            const constructorLink = document.querySelector('.user-links a[href="{% url "constructor:test_create" %}"]');
+            if (userAccessLevel === 1 && constructorLink) {
+                constructorLink.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

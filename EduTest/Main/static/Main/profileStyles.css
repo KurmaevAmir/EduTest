@@ -1,0 +1,148 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F9F7F7;
+    color: #333;
+}
+
+.header {
+    background-color: #3F72AF;
+    color: #ffffff;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 30px;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    width: 50px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.header-text {
+    font-size: 27px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.header-text:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.user-links {
+    display: flex;
+    align-items: center;
+    margin-right: 1020px;
+}
+
+.user-links a {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 22px;
+    margin-right: -70px;
+}
+
+.user-links a:hover {
+    color: #DBE2EF;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    right: 100px;
+}
+.container {
+    max-width: 1500px;
+    padding: 20px;
+}
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+form button {
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007BFF;
+}
+
+form button:hover {
+     background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #3F72AF;
+    color: #fff;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
