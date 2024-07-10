@@ -13,4 +13,5 @@ urlpatterns = [
     path("test/<int:option_id>/question/<int:question_number>/", views.TestFormView.as_view(), name='test_form'),
     path("test/result/<int:pk>/", views.TestResultView.as_view(), name='test_result'),
     path("tests/", views.TestListView.as_view(), name='test_list'),
+    path("tests_students/", views.TestsForStudents.as_view(), name='tests_for_students')
 ]
