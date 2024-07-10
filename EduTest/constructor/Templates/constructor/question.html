@@ -41,9 +41,15 @@
         </div>
         {% endfor %}
         <div class="buttons">
-            <button type="submit" class="btn submit-btn-outline-primary">Добавить следующий вопрос</button>
+            <button type="submit" class="btn submit-btn-outline-primary" style="margin-right: 10px">Добавить следующий вопрос</button>
+            <button type="button" id="finishTestButton" class="btn btn-outline-danger">Завершить</button>
         </div>
     </form>
 </div>
+<script>
+    document.getElementById('finishTestButton').addEventListener('click', function() {
+        window.location.href = '{% url "Main:test_list" %}';
+    });
+</script>
 </body>
 </html>
