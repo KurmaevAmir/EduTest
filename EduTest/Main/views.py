@@ -1,7 +1,7 @@
 import random
 
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, FormView
 from .models import Profile, Test, Option, TestAnswer, Answer, TestResult, EducationalGroup
 from django.utils.decorators import method_decorator
@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from constructor.views import UserAccessMixin
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
@@ -76,7 +76,10 @@ class TestDescriptionView(DetailView):
         test = self.get_object()
         student = request.user.profile
         # option = Option.objects.create(student=student, test=test, start_time=timezone.now())
-        option = get_object_or_404(Option, student=student, execution_status=False)
+        try:
+            option = get_object_or_404(Option, student=student, execution_status=False, test=test)
+        except Option.MultipleObjectsReturned:
+            option = Option.objects.filter(student=student, execution_status=False, test=test).first()
         option.start_time = timezone.now()
         questions = list(test.questions.all())
         random.shuffle(questions)
@@ -232,3 +235,8 @@ class RegistrationView(FormView):
         educational_group.user.add(profile)
         login(self.request, user)
         return super().form_valid(form)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('Main:home'))
