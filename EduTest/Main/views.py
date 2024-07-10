@@ -2,7 +2,7 @@ import random
 
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import DetailView, FormView
+from django.views.generic import DetailView, FormView, ListView
 from .models import Profile, Test, Option, TestAnswer, Answer, TestResult, EducationalGroup
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -240,3 +240,9 @@ class RegistrationView(FormView):
 def logout_view(request):
     logout(request)
     return redirect(reverse('Main:home'))
+
+
+class TestListView(UserAccessMixin, ListView):
+    model = Test
+    template_name = 'Main/test_list.html'
+    context_object_name = 'tests'

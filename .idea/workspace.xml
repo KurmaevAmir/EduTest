@@ -4,331 +4,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9e02a5d-2312-4170-8140-839faa452fa0" name="ET-22 Реализовать дизайн страницы теста" comment="ET-24 Реализовать модуль авторизации">
-      <change afterPath="$PROJECT_DIR$/EduTest/Main/static/Main/registrationStyles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/EduTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EduTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_07_2024_18_27__ET-14____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_07_2024_18_27__ET-14____.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2024_0_50__ET-22____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2024_0_50__ET-22____.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EduTest/Main/Templates/Main/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/EduTest/Main/Templates/Main/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EduTest/Main/Templates/Main/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/EduTest/Main/Templates/Main/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EduTest/Main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/EduTest/Main/urls.py" afterDir="false" />
-    </list>
-    <list id="93f95a2d-55e6-492b-8011-fec3e03dd809" name="Changes" comment="" />
-    <list id="8387eacf-b113-4bf4-a2f2-421c876ba7bc" name="ET-14 Реализовать дизайн страницы с созданием/изменением теста" comment="ET-14 Реализовать дизайн страницы с созданием/изменением теста" />
+    <list default="true" id="f8e826ab-d4eb-4166-8a19-e3afc96d9768" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
-    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="JavaScript File" />
-        <option value="HTML File" />
-        <option value="CSS File" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <favorite-branches>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="feature_xx14" />
-                <branch-info repo="$PROJECT_DIR$" source="develop" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </favorite-branches>
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="feature_xx22" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;reflection9&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/KurmaevAmir/EduTest.git&quot;,
-    &quot;accountId&quot;: &quot;1f02e5d7-b861-4b09-8ed1-bd912d9e6d9e&quot;
-  }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
-}</component>
-  <component name="ProjectId" id="2ijTPvRRYOxjtPlf1UmsBlE1zOR" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectId" id="2j3CF7JuoFtxEULATb5rAirir94" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
-    "git-widget-placeholder": "feature__xx26",
-    "last_opened_file_path": "C:/Users/reflection/PycharmProjects/EduTest/EduTest/EduTest/settings.py",
-    "list.type.of.created.stylesheet": "CSS",
+    "WebServerToolWindowFactoryState": "false",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "start.from.branch": "origin/develop",
-    "tasks.open.task.update.state.enabled": "true",
-    "timeTracker.activityTracker": "null",
-    "timeTracker.comment": "",
-    "timeTracker.inactivityPeriodInMills": "600000",
-    "timeTracker.isAutoTrackingEnable": "false",
-    "timeTracker.isAutoTrackingTemporaryDisabled": "false",
-    "timeTracker.isManualTrackingEnable": "false",
-    "timeTracker.isPaused": "true",
-    "timeTracker.isPostAfterCommitEnabled": "false",
-    "timeTracker.isPostedScheduled": "true",
-    "timeTracker.isRunning": "false",
-    "timeTracker.isScheduledEnabled": "false",
-    "timeTracker.isWhenProjectClosedEnabled": "false",
-    "timeTracker.issueId": "Default",
-    "timeTracker.issueIdReadable": "Default",
-    "timeTracker.pausedTime": "0",
-    "timeTracker.query": "",
-    "timeTracker.recordedTime": "0",
-    "timeTracker.scheduledPeriod": "19:00:0",
-    "timeTracker.startTime": "0",
-    "timeTracker.timeInMills": "0",
-    "timeTracker.type": "Разработка",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\reflection\PycharmProjects\EduTest\EduTest\Main\static\assets" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="EduTest" type="Python.DjangoServer" factoryName="Django server">
-      <module name="EduTest" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="localhost" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
-      <method v="2" />
-    </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
-        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task id="Default" summary="Default task">
-      <branch name="develop" repository="C:\Users\reflection\PycharmProjects\EduTest" />
-      <changelist id="93f95a2d-55e6-492b-8011-fec3e03dd809" name="Changes" comment="" />
-      <created>1720002965834</created>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f8e826ab-d4eb-4166-8a19-e3afc96d9768" name="Changes" comment="" />
+      <created>1720606281158</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1720004199557</updated>
-      <workItem from="1720002967040" duration="634000" />
-      <workItem from="1720004077063" duration="42000" />
-      <workItem from="1720004148737" duration="49000" />
+      <updated>1720606281158</updated>
+      <workItem from="1720606285076" duration="144000" />
+      <workItem from="1720606464618" duration="140000" />
+      <workItem from="1720606615291" duration="502000" />
     </task>
-    <task id="ET-10" summary="Реализовать главные страницы">
-      <branch name="develop" repository="C:\Users\reflection\PycharmProjects\EduTest" original="true" />
-      <branch name="feature_xx10" repository="C:\Users\reflection\PycharmProjects\EduTest" />
-      <changelist id="8387eacf-b113-4bf4-a2f2-421c876ba7bc" name="ET-14 Реализовать дизайн страницы с созданием/изменением теста" comment="" />
-      <option name="closed" value="true" />
-      <created>1720004058978</created>
-      <option name="issue" value="true" />
-      <url>https://akurmaev.youtrack.cloud/issue/ET-10</url>
-      <option name="number" value="10" />
-      <option name="presentableId" value="ET-10" />
-      <option name="project" value="ET" />
-      <option name="type" value="FEATURE" />
-      <updated>1720543480520</updated>
-      <workItem from="1720004199603" duration="112000" />
-      <workItem from="1720030106550" duration="255000" />
-      <workItem from="1720050549771" duration="1067000" />
-      <workItem from="1720051644422" duration="26000" />
-      <workItem from="1720084743916" duration="8892000" />
-      <workItem from="1720102872441" duration="1722000" />
-      <workItem from="1720105865887" duration="2955000" />
-      <workItem from="1720108931474" duration="3920000" />
-      <workItem from="1720165899544" duration="741000" />
-      <workItem from="1720179227056" duration="1207000" />
-      <workItem from="1720264250363" duration="381000" />
-      <workItem from="1720367011955" duration="20000" />
-      <workItem from="1720380893275" duration="23000" />
-      <workItem from="1720441709251" duration="12000" />
-      <workItem from="1720441764830" duration="128000" />
-      <workItem from="1720442768169" duration="125000" />
-      <workItem from="1720542567841" duration="20000" />
-      <workItem from="1720543441912" duration="39000" />
-    </task>
-    <task id="ET-14" summary="Реализовать дизайн страницы с созданием/изменением теста ">
-      <branch name="origin/develop" repository="C:\Users\reflection\PycharmProjects\EduTest" original="true" />
-      <branch name="feature_xx14" repository="C:\Users\reflection\PycharmProjects\EduTest" />
-      <changelist id="8387eacf-b113-4bf4-a2f2-421c876ba7bc" name="ET-14 Реализовать дизайн страницы с созданием/изменением теста" comment="" />
-      <option name="closed" value="true" />
-      <created>1720168859163</created>
-      <option name="issue" value="true" />
-      <url>https://akurmaev.youtrack.cloud/issue/ET-14</url>
-      <option name="number" value="14" />
-      <option name="presentableId" value="ET-14" />
-      <option name="project" value="ET" />
-      <option name="type" value="FEATURE" />
-      <updated>1720543104043</updated>
-      <workItem from="1720264635934" duration="6432000" />
-      <workItem from="1720282645399" duration="7886000" />
-      <workItem from="1720354082721" duration="3474000" />
-      <workItem from="1720364093067" duration="2560000" />
-      <workItem from="1720367032163" duration="8424000" />
-      <workItem from="1720380916522" duration="417000" />
-      <workItem from="1720436456747" duration="321000" />
-      <workItem from="1720439939510" duration="1752000" />
-      <workItem from="1720441721409" duration="43000" />
-      <workItem from="1720441894369" duration="198000" />
-      <workItem from="1720442345609" duration="309000" />
-      <workItem from="1720442729787" duration="38000" />
-      <workItem from="1720442894492" duration="976000" />
-      <workItem from="1720448151857" duration="2553000" />
-      <workItem from="1720450754733" duration="56000" />
-      <workItem from="1720463601360" duration="3906000" />
-      <workItem from="1720475915862" duration="247000" />
-      <workItem from="1720511544713" duration="341000" />
-      <workItem from="1720520723938" duration="255000" />
-      <workItem from="1720542587994" duration="511000" />
-    </task>
-    <task active="true" id="ET-22" summary="Реализовать дизайн страницы теста ">
-      <branch name="origin/develop" repository="C:\Users\reflection\PycharmProjects\EduTest" original="true" />
-      <branch name="feature_xx22" repository="C:\Users\reflection\PycharmProjects\EduTest" />
-      <changelist id="f9e02a5d-2312-4170-8140-839faa452fa0" name="ET-22 Реализовать дизайн страницы теста" comment="" />
-      <option name="closed" value="true" />
-      <created>1720430671976</created>
-      <option name="issue" value="true" />
-      <url>https://akurmaev.youtrack.cloud/issue/ET-22</url>
-      <option name="number" value="22" />
-      <option name="presentableId" value="ET-22" />
-      <option name="project" value="ET" />
-      <option name="type" value="FEATURE" />
-      <updated>1720561938238</updated>
-      <workItem from="1720520982271" duration="65000" />
-      <workItem from="1720529172194" duration="977000" />
-      <workItem from="1720537927683" duration="4009000" />
-      <workItem from="1720543104483" duration="334000" />
-      <workItem from="1720543481287" duration="19772000" />
-      <workItem from="1720597643945" duration="1444000" />
-      <workItem from="1720599127627" duration="690000" />
-      <workItem from="1720599836918" duration="303000" />
-    </task>
-    <task id="LOCAL-00001" summary="ET-24 Реализовать модуль авторизации">
-      <option name="closed" value="true" />
-      <created>1720564816832</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1720564816832</updated>
-    </task>
-    <task id="ET-24" summary="Реализовать страницу авторизации пользователей">
-      <created>1720590886982</created>
-      <option name="issue" value="true" />
-      <url>https://akurmaev.youtrack.cloud/issue/ET-24</url>
-      <option name="number" value="24" />
-      <option name="presentableId" value="ET-24" />
-      <option name="project" value="ET" />
-      <option name="type" value="FEATURE" />
-      <updated>1720598690677</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
-    <servers>
-      <YouTrack url="https://akurmaev.youtrack.cloud">
-        <option name="preferredOpenTaskState">
-          <CustomTaskState id="В обработке" name="В обработке" />
-        </option>
-        <username>random</username>
-      </YouTrack>
-    </servers>
+    <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/feature_xx17" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="ET-10 Реализовать главные страницы" />
-    <MESSAGE value="ET-14 Реализовать дизайн страницы с созданием/изменением теста" />
-    <MESSAGE value="ET-22 Реализовать дизайн страницы теста" />
-    <MESSAGE value="ET-24 Реализовать модуль авторизации" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
-    </breakpoint-manager>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/EduTest$views.coverage" NAME="views Coverage Results" MODIFIED="1720511994741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/EduTest/Main" />
   </component>
 </project>
