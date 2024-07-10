@@ -11,77 +11,44 @@
     <link rel="stylesheet" href="{% static 'Main/test_listStyles.css' %}">
 </head>
 <body>
-    <div class="header">
-        <div class="container header-content">
-            <div class="logo-title">
-                <img src="{% static 'constructor/header.png' %}" alt="Лого" class="header-logo">
-                <a href={% url 'Main:home' %}>
-                    <span class="header-text">EduTest</span>
-                </a>
-            </div>
-            <div class="user-links">
-                <a href={% url 'constructor:test_create' %}>Конструктор</a>
-            </div>
-            <a href="#">
-                <img id="userAvatar" src="{% static 'constructor/profileIcon-image.png' %}" alt="User Avatar"
-                     class="user-avatar">
+<div class="header">
+    <div class="container header-content">
+        <div class="logo-title">
+            <img src="{% static 'constructor/header.png' %}" alt="Лого" class="header-logo">
+            <a href={% url 'Main:home' %}>
+                <span class="header-text">EduTest</span>
             </a>
         </div>
+        <a href={% url 'Main:profile' %}>
+            <img id="userAvatar" src="{% static 'constructor/profileIcon-image.png' %}" alt="User Avatar"
+                 class="user-avatar">
+        </a>
     </div>
-    <div class="container content">
-        <h2>Список тестов</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Название теста</th>
-                    <th>Дисциплина</th>
-                    <th>Время выполнения</th>
-                    <th>Количество баллов</th>
-                    <th>Преподаватель</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for option in options %}
-                    <tr>
-                        <td><a href="{% url 'Main:test_description' option.test.pk %}">{{ option.test.name }}</a></td>
-                        <td>{{ option.test.discipline.name }}</td>
-                        <td>{{ option.test.lead_time }}</td>
-                        <td>{{ option.test.max_score }}</td>
-                        <td>{{ option.test.teacher.user.first_name }} {{ option.test.teacher.user.last_name }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <script>
-        $(document).ready(function () {
-            const constructorUrl = '{% url "constructor:test_create" %}';
-
-            $('#userLinks').on('click', '#constructorLink', function (event) {
-                event.preventDefault();
-                window.location.href = constructorUrl;
-            });
-
-            function fetchUserDataAndSetLinks() {
-                // Получение данных от Django-бэкенда
-                const userAccessLevel = {{ access }};
-
-                const userLinks = document.getElementById('userLinks');
-                userLinks.innerHTML = '';
-
-                if (userAccessLevel >= 2) {
-                    const constructorLink = document.createElement('a');
-                    constructorLink.href = '#';
-                    constructorLink.id = 'constructorLink';
-                    constructorLink.innerText = 'Конструктор';
-                    constructorLink.classList.add('constructor-link');
-                    constructorLink.style.display = 'inline-block';
-                    userLinks.appendChild(constructorLink);
-                }
-            }
-
-            fetchUserDataAndSetLinks();
-        });
-    </script>
+</div>
+<div class="container content">
+    <h2>Список тестов</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Название теста</th>
+            <th>Дисциплина</th>
+            <th>Время выполнения</th>
+            <th>Количество баллов</th>
+            <th>Преподаватель</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for option in options %}
+            <tr>
+                <td><a href="{% url 'Main:test_description' option.test.pk %}">{{ option.test.name }}</a></td>
+                <td>{{ option.test.discipline.name }}</td>
+                <td>{{ option.test.lead_time }}</td>
+                <td>{{ option.test.max_score }}</td>
+                <td>{{ option.test.teacher.user.first_name }} {{ option.test.teacher.user.last_name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

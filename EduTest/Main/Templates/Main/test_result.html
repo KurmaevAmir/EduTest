@@ -19,10 +19,10 @@
         </a>
     </div>
     <div class="user-links">
-        <a href="{% url 'Main:test_list' %}" id="testsLink">Тесты</a>
+        <a href="#" id="testsLink">Тесты</a>
         <a href="{% url 'constructor:test_create' %}" id="constructorLink" class="constructor-link">Конструктор</a>
     </div>
-    <a href="#">
+    <a href={% url 'Main:profile' %}>
         <img id="userAvatar" src="{% static 'Main/profileIcon-image.png' %}" alt="User Avatar" class="user-avatar">
     </a>
 </div>

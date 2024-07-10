@@ -22,7 +22,7 @@
         <div class="user-links">
             <a href={% url 'Main:test_list' %}>Тесты</a>
         </div>
-        <a href="#">
+        <a href={% url 'Main:profile' %}>
             <img id="userAvatar" src="{% static 'constructor/profileIcon-image.png' %}" alt="User Avatar"
                  class="user-avatar">
         </a>

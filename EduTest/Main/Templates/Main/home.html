@@ -108,7 +108,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
-        const testsUrl = '{% url "Main:test_list" %}';
+        const testsUrlForNonStudents = '{% url "Main:test_list" %}';
+        const testsUrlForStudents = '{% url "Main:tests_for_students" %}';
         const constructorUrl = '{% url "constructor:test_create" %}';
 
         // Открытие модального окна авторизации
@@ -128,7 +129,7 @@
 
         $('#userLinks').on('click', '#testsLink', function (event) {
             event.preventDefault();
-            window.location.href = testsUrl;
+            window.location.href = $(this).data('url');
         });
 
         $('#userLinks').on('click', '#constructorLink', function (event) {
@@ -146,12 +147,14 @@
             userLinks.innerHTML = '';
 
             // Устанавливаем ссылки в зависимости от уровня доступа
+            // Устанавливаем ссылки в зависимости от уровня доступа
             if (userAccessLevel >= 1) {
                 const testsLink = document.createElement('a');
-                testsLink.href = '{% url 'Main:test_list' %}';
+                testsLink.href = '#';
                 testsLink.id = 'testsLink';
                 testsLink.innerText = 'Тесты';
                 testsLink.style.display = 'inline-block';
+                testsLink.dataset.url = userAccessLevel === 1 ? testsUrlForStudents : testsUrlForNonStudents;
                 userLinks.appendChild(testsLink);
             }
 
@@ -170,8 +173,6 @@
             if (userAuthorized) {
                 loginButton.style.display = 'none';
                 userAvatar.style.display = 'inline-block';
-                 {#if (avatarUrl)#}
-                 {#   userAvatar.src = avatarUrl;#}
             } else {
                 loginButton.style.display = 'inline-block';
                 userAvatar.style.display = 'none';
