@@ -75,7 +75,6 @@ class TestDescriptionView(DetailView):
     def post(self, request, *args, **kwargs):
         test = self.get_object()
         student = request.user.profile
-        # option = Option.objects.create(student=student, test=test, start_time=timezone.now())
         try:
             option = get_object_or_404(Option, student=student, execution_status=False, test=test)
         except Option.MultipleObjectsReturned:
@@ -260,22 +259,21 @@ class ProfileView(DetailView):
             'profile_form': profile_form,
             'password_form': password_form
         }
-        if profile.user.groups.filter(name__in=['Студент']):
+        if profile.user.groups.filter(name__in=['Студент']).exists():
             context['tests'] = TestResult.objects.filter(option__student=profile)
+            context['student'] = True
         elif profile.user.groups.filter(name__in=['Преподаватель', 'Администратор']).exists():
             context['tests'] = Test.objects.filter(teacher=profile)
+            context['student'] = False
+        context['profile'] = profile
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         profile = Profile.objects.get(user=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
         password_form = ChangePasswordForm(user=request.user, data=request.POST)
-        if 'save_profile' in request.POST:
-            if profile_form.is_valid():
-                profile_form.save()
-                print("Profile data saved successfully!")
-            else:
-                print("Profile form errors:", profile_form.errors)
+        if 'save_profile' in request.POST and profile_form.is_valid():
+            profile_form.save()
         if 'change_password' in request.POST and password_form.is_valid():
             user = password_form.save()
             update_session_auth_hash(request, user)
@@ -284,8 +282,25 @@ class ProfileView(DetailView):
             'profile_form': profile_form,
             'password_form': password_form
         }
-        if profile.user.groups.filter(name__in=['Студент']):
+        if profile.user.groups.filter(name__in=['Студент']).exists():
             context['tests'] = TestResult.objects.filter(option__student=profile)
+            context['student'] = True
         elif profile.user.groups.filter(name__in=['Преподаватель', 'Администратор']).exists():
             context['tests'] = Test.objects.filter(teacher=profile)
+            context['student'] = False
+        context['profile'] = profile
         return render(request, self.template_name, context)
+
+
+@method_decorator(login_required, name='dispatch')
+class TestsForStudents(ListView):
+    model = Option
+    template_name = 'Main/tests_for_students.html'
+    context_object_name = 'options'
+
+    def get_object(self):
+        return Option.objects.filter(student=self.request.user.profile)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
