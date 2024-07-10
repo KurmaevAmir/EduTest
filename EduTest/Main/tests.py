@@ -326,10 +326,38 @@ class RegistrationForm(TestCase):
             'first_name': 'UserName',
             'last_name': 'UserLastName',
             'email': 'user@example.com',
-            'educational_group': '11-305',
+            'education_group': '11-305',
             'password': 'Password1!',
             'password_confirmation': 'Password1!'
         }
         response = self.client.post(self.page, data)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(User.objects.filter(email='user@example.com').exists())
+
+
+class TestListViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='teacher', password='password')
+        self.profile = Profile.objects.create(user=self.user)
+        groups = ['Студент', "Преподаватель", "Администратор"]
+        group_teacher = Group.objects.create(name=groups[1])
+        self.user.groups.add(group_teacher)
+        self.discipline = Discipline.objects.create(name='Math')
+        self.test = Test.objects.create(
+            name='Sample Test',
+            lead_time='00:30:00',
+            max_score=100,
+            discipline=self.discipline,
+            teacher=self.profile
+        )
+        self.test_list = reverse('Main:test_list')
+
+    def test_test_list_view_status_code(self):
+        self.client.login(username='teacher', password='password')
+        response = self.client.get(self.test_list)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(User.objects.filter(email=data['email']).exists())
+
+    def test_test_list_view_template_user(self):
+        self.client.login(username='teacher', password='password')
+        response = self.client.get(self.test_list)
+        self.assertTemplateUsed(response, 'Main/test_list.html')
