@@ -307,3 +307,29 @@ class HomePageViewTests(TestCase):
         })
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Неверный пароль. Пожалуйста, попробуйте снова.')
+
+
+class RegistrationForm(TestCase):
+    def setUp(self):
+        self.page = reverse('Main:registration')
+
+    def test_register_page_status_code(self):
+        response = self.client.get(self.page)
+        self.assertEqual(response.status_code, 200)
+
+    def test_register_page_template(self):
+        response = self.client.get(self.page)
+        self.assertTemplateUsed(response, 'Main/registration.html')
+
+    def test_register_user(self):
+        data = {
+            'first_name': 'UserName',
+            'last_name': 'UserLastName',
+            'email': 'user@example.com',
+            'educational_group': '11-305',
+            'password': 'Password1!',
+            'password_confirmation': 'Password1!'
+        }
+        response = self.client.post(self.page, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(User.objects.filter(email=data['email']).exists())

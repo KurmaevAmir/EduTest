@@ -1,17 +1,17 @@
 import random
 
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy
-from django.views.generic import TemplateView, DetailView, FormView
-from .models import Profile, Test, Option, TestAnswer, Answer, TestResult
+from django.urls import reverse_lazy, reverse
+from django.views.generic import DetailView, FormView
+from .models import Profile, Test, Option, TestAnswer, Answer, TestResult, EducationalGroup
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from .forms import AnswerForm, TestAssignmentSelectForm, LoginForm
+from .forms import AnswerForm, TestAssignmentSelectForm, LoginForm, RegistrationForm
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from constructor.views import UserAccessMixin
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
@@ -76,7 +76,10 @@ class TestDescriptionView(DetailView):
         test = self.get_object()
         student = request.user.profile
         # option = Option.objects.create(student=student, test=test, start_time=timezone.now())
-        option = get_object_or_404(Option, student=student, execution_status=False)
+        try:
+            option = get_object_or_404(Option, student=student, execution_status=False, test=test)
+        except Option.MultipleObjectsReturned:
+            option = Option.objects.filter(student=student, execution_status=False, test=test).first()
         option.start_time = timezone.now()
         questions = list(test.questions.all())
         random.shuffle(questions)
@@ -210,3 +213,30 @@ class TestAssignmentView(UserAccessMixin, LoginRequiredMixin, FormView):
                 execution_status=False
             )
         return super().form_valid(form)
+
+
+class RegistrationView(FormView):
+    template_name = 'Main/registration.html'
+    form_class = RegistrationForm
+    success_url = reverse_lazy('Main:home')
+
+    def form_valid(self, form):
+        user = User.objects.create_user(
+            username=form.cleaned_data['email'],
+            email=form.cleaned_data['email'],
+            first_name=form.cleaned_data['first_name'],
+            last_name=form.cleaned_data['last_name'],
+            password=form.cleaned_data['password']
+        )
+        profile = Profile.objects.create(user=user)
+        educational_group, created = EducationalGroup.objects.update_or_create(number_group=form.cleaned_data['education_group'])
+        if not created:
+            educational_group.save()
+        educational_group.user.add(profile)
+        login(self.request, user)
+        return super().form_valid(form)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('Main:home'))

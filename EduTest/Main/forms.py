@@ -1,5 +1,8 @@
+import re
+
 from django import forms
 from .models import Profile, EducationalGroup
+from django.core.exceptions import ValidationError
 
 
 class AnswerForm(forms.Form):
@@ -29,3 +32,32 @@ class TestAssignmentSelectForm(forms.Form):
 class LoginForm(forms.Form):
     email = forms.CharField(label='Электронная почта')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+
+
+class RegistrationForm(forms.Form):
+    first_name = forms.CharField(label='Имя', max_length=150)
+    last_name = forms.CharField(label='Фамилия', max_length=150)
+    email = forms.EmailField(label='Электронная почта', max_length=254)
+    education_group = forms.CharField(label='Образовательная группа', max_length=50)
+    password = forms.CharField(label='Пароль', max_length=128, widget=forms.PasswordInput)
+    password_confirmation = forms.CharField(label='Пароль', max_length=128, widget=forms.PasswordInput)
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if len(password) < 8:
+            raise ValidationError('Пароль должен быть не менее 8 символов.')
+        if not re.search(r'[a-zA-Z]', password) and not re.search(r'а-яА-Я', password):
+            raise ValidationError('Пароль должен содержать буквы')
+        if not re.search(r'\d', password):
+            raise ValidationError('Пароль должен содержать цифры')
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+            raise ValidationError('Пароль не содержит специальные символы')
+        return password
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        password_confirmation = cleaned_data.get('password_confirmation')
+        if password != password_confirmation:
+            raise ValidationError('Пароли не совпадают.')
+        return cleaned_data
