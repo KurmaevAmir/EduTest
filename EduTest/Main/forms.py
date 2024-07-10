@@ -3,6 +3,7 @@ import re
 from django import forms
 from .models import Profile, EducationalGroup
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class AnswerForm(forms.Form):
@@ -61,3 +62,45 @@ class RegistrationForm(forms.Form):
         if password != password_confirmation:
             raise ValidationError('Пароли не совпадают.')
         return cleaned_data
+
+
+class ProfileForm(forms.ModelForm):
+    first_name = forms.CharField(label='Имя', max_length=150)
+    last_name = forms.CharField(label='Фамилия', max_length=150)
+    email = forms.EmailField(label='Электронная почта')
+    group = forms.ModelChoiceField(label='Образовательная группа', queryset=EducationalGroup.objects.all())
+
+    class Meta:
+        model = Profile
+        fields = ['photo']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        user = self.instance.user
+        self.fields['first_name'].initial = user.first_name
+        self.fields['last_name'].initial = user.last_name
+        self.fields['email'].initial = user.email
+        self.fields[
+            'group'].initial = user.profile.educationalgroup_set.first() if user.profile.educationalgroup_set.exists() else None
+
+    def save(self, commit=True):
+        profile = super().save(commit=False)
+        user = profile.user
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            profile.save()
+            if self.cleaned_data['group']:
+                user.profile.educationalgroup_set.clear()
+                self.cleaned_data['group'].user.add(profile)
+        return profile
+
+
+class ChangePasswordForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['old_password'].label = "Старый пароль"
+        self.fields['new_password1'].label = "Новый пароль"
+        self.fields['new_password2'].label = "Подтверждение нового пароля"

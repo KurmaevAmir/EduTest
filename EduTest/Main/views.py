@@ -1,17 +1,17 @@
 import random
 
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import DetailView, FormView, ListView
+from django.views.generic import DetailView, FormView, ListView, UpdateView
 from .models import Profile, Test, Option, TestAnswer, Answer, TestResult, EducationalGroup
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from .forms import AnswerForm, TestAssignmentSelectForm, LoginForm, RegistrationForm
+from .forms import AnswerForm, TestAssignmentSelectForm, LoginForm, RegistrationForm, ProfileForm, ChangePasswordForm
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from constructor.views import UserAccessMixin
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 # Create your views here.
 
 

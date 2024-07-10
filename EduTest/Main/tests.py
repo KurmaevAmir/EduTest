@@ -361,3 +361,45 @@ class TestListViewTests(TestCase):
         self.client.login(username='teacher', password='password')
         response = self.client.get(self.test_list)
         self.assertTemplateUsed(response, 'Main/test_list.html')
+
+
+class ProfileViewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='password')
+        self.profile = Profile.objects.create(user=self.user)
+        self.group = EducationalGroup.objects.create(number_group='Test Group')
+        self.discipline = Discipline.objects.create(name='Math')
+        self.client.login(username='testuser', password='password')
+
+    def test_profile_view_status_code(self):
+        response = self.client.get(reverse('Main:profile'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_profile_view_uses_correct_template(self):
+        response = self.client.get(reverse('Main:profile'))
+        self.assertTemplateUsed(response, 'Main/profile.html')
+
+    def test_profile_update(self):
+        response = self.client.post(reverse('Main:profile'), {
+            'save_profile': True,
+            'first_name': 'Test',
+            'last_name': 'User',
+            'email': 'testuser@example.com',
+            'group': self.group.id,
+        })
+        self.profile.refresh_from_db()
+        self.assertEqual(self.profile.user.first_name, 'Test')
+        self.assertEqual(self.profile.user.last_name, 'User')
+        self.assertEqual(self.profile.user.email, 'testuser@example.com')
+        self.assertEqual(self.profile.educationalgroup_set.first(), self.group)
+
+    def test_password_change(self):
+        response = self.client.post('/profile/', {
+            'change_password': 'Change Password',
+            'old_password': 'password',
+            'new_password1': 'N3wP@ssword123!',
+            'new_password2': 'N3wP@ssword123!'
+        })
+        self.assertEqual(response.status_code, 302)
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password('N3wP@ssword123!'))
