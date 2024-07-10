@@ -104,3 +104,15 @@ class ChangePasswordForm(PasswordChangeForm):
         self.fields['old_password'].label = "Старый пароль"
         self.fields['new_password1'].label = "Новый пароль"
         self.fields['new_password2'].label = "Подтверждение нового пароля"
+
+    def clean_new_password1(self):
+        password = self.cleaned_data.get('new_password1')
+        if len(password) < 8:
+            raise ValidationError('Пароль должен быть не менее 8 символов.')
+        if not re.search(r'[a-zA-Z]', password) and not re.search(r'а-яА-Я', password):
+            raise ValidationError('Пароль должен содержать буквы')
+        if not re.search(r'\d', password):
+            raise ValidationError('Пароль должен содержать цифры')
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+            raise ValidationError('Пароль не содержит специальные символы')
+        return password
