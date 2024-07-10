@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{ success_save_profile }}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ profile_form.as_p }}
+    <button type="submit" name="save_profile">Сохранить</button>
+</form>
+<form method="post">
+    {% csrf_token %}
+    {{ password_form.as_p }}
+    <button type="submit" name="change_password">Сменить пароль</button>
+</form>
+<table>
+    {% if profile.user.groups.name == 'Студент' %}
+        <thead>
+        <tr>
+            <th>Название теста</th>
+            <th>Начало выполнения</th>
+            <th>Дисциплина</th>
+            <th>Преподаватель</th>
+            <th>Баллы</th>
+            <th>Время выполнения</th>
+            <th>Процент выполнения</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for test in tests %}
+                <td><a href="{% url 'Main:test_description' test.pk %}">{{ test.option.test.name }}</a></td>
+                <td>{{ test.option.start_time }}</td>
+                <td>{{ test.discipline.name }}</td>
+                <td>{{ test.option.test.teacher.user.get_full_name }}</td>
+                <td>{{ test.score }}</td>
+                <td>{{ test.lead_time }}</td>
+                <td>{{ test.test_percentage }}</td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    {% else %}
+        <thead>
+        <tr>
+            <th>Название теста</th>
+            <th>Вопросы</th>
+            <th>Дисциплина</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for test in tests %}
+            <tr>
+                <td><a href="{% url 'Main:test_description' test.pk %}">{{ test.name }}</a></td>
+                <td>{{ test.questions.all|join:" " }}</td>
+                <td>{{ test.discipline.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    {% endif %}
+</table>
+</body>
+</html>
