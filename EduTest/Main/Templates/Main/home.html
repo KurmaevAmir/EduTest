@@ -19,7 +19,9 @@
     <div class="container">
         <div class="logo-title">
             <img src="{% static 'Main/header.png' %}" alt="Лого" class="header-logo">
-            <span class="header-text">EduTest</span>
+            <a href={% url 'Main:home' %}>
+                <span class="header-text" style="color: #fff">EduTest</span>
+            </a>
         </div>
         <div id="userLinks" class="user-links">
             <!-- Ссылки для пользователя будут добавлены здесь с помощью JavaScript -->
@@ -71,22 +73,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="loginForm" method="post">
-{#                    <div class="form-group">#}
-{#                        <label for="loginUsername">Электронная почта</label>#}
-{#                        <input type="text" class="form-control" id="loginUsername"#}
-{#                               placeholder="Введите электронную почту" required>#}
-{#                    </div>#}
-{#                    <div class="form-group">#}
-{#                        <label for="loginPassword">Пароль</label>#}
-{#                        <input type="password" class="form-control" id="loginPassword" placeholder="Введите пароль"#}
-{#                               required>#}
-{#                    </div>#}
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Авторизоваться</button>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" required>
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn-primary">Авторизоваться</button>
+                    </form>
                     {% if form.errors %}
-                        <ul>
+                        <ul class="errorlist">
                             {% for field in form %}
                                 {% for error in field.errors %}
                                     <li>{{ error }}</li>
@@ -97,13 +95,9 @@
                             {% endfor %}
                         </ul>
                     {% endif %}
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="loginSubmit">Войти</button>
-            </div>
-            <div class="text-center mt-3">
-                <p>Нет аккаунта? <a href="#" id="registerLink">Создать</a></p>
+                <div class="text-center mt-3">
+                    <p>Нет аккаунта? <a href="#" id="registerLink">Создать</a></p>
+                </div>
             </div>
         </div>
     </div>
@@ -162,6 +156,9 @@
 </div>
 <script>
     $(document).ready(function () {
+        const testsUrl = '#';
+        const constructorUrl = '{% url "constructor:test_create" %}';
+
         // Открытие модального окна авторизации
         $('#loginButton').click(function () {
             $('#loginModal').modal('show');
@@ -231,12 +228,14 @@
             document.getElementById('about').scrollIntoView({behavior: 'smooth'}); // Прокрутка до раздела "О нас"
         });
 
-        $('#userLinks').on('click', 'a[href="#"]', function (event) {
+        $('#userLinks').on('click', '#testsLink', function (event) {
             event.preventDefault();
+            window.location.href = testsUrl;
         });
 
-        $('#userLinks').on('click', 'a.constructor-link', function (event) {
+        $('#userLinks').on('click', '#constructorLink', function (event) {
             event.preventDefault();
+            window.location.href = constructorUrl;
         });
 
         function fetchUserDataAndSetLinks() {
@@ -251,6 +250,7 @@
             if (userAccessLevel >= 1) {
                 const testsLink = document.createElement('a');
                 testsLink.href = '#';
+                testsLink.id = 'testsLink';
                 testsLink.innerText = 'Тесты';
                 testsLink.style.display = 'inline-block';
                 userLinks.appendChild(testsLink);
@@ -259,6 +259,7 @@
             if (userAccessLevel >= 2) {
                 const constructorLink = document.createElement('a');
                 constructorLink.href = '#';
+                constructorLink.id = 'constructorLink';
                 constructorLink.innerText = 'Конструктор';
                 constructorLink.classList.add('constructor-link');
                 constructorLink.style.display = 'inline-block';

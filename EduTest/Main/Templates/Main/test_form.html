@@ -1,23 +1,50 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTest</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="shortcut icon" href="{% static 'constructor/mini-icon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'Main/test_formStyles.css' %}">
 </head>
 <body>
-<h1>{{ option.test.name }}</h1>
-<p>Вопрос {{ current_question_number }} из {{ total_questions }}</p>
-<form method="post">
-    {% csrf_token %}
-    <p>{{ question.question }}</p>
-    {% for answer in answers %}
-        <div>
-            <input type="radio" id="answer_{{ answer.id }}" name="user_answer" value="{{ answer.id }}">
-            <label for="answer_{{ answer.id }}">{{ answer.possible_answer }}</label>
+<div class="header">
+    <div class="container header-content">
+        <div class="logo-title">
+            <img src="{% static 'constructor/header.png' %}" alt="Лого" class="header-logo">
+            <a href="{% url 'Main:home' %}">
+                <span class="header-text">EduTest</span>
+            </a>
         </div>
-    {% endfor %}
-    <button type="submit">Ответить</button>
-</form>
-<p>Оставшееся время: {{ remaining_time }}</p>
+        <div class="user-links">
+            <a href="#">Тесты</a>
+        </div>
+        <a href="#">
+            <img id="userAvatar" src="{% static 'constructor/profileIcon-image.png' %}" alt="User Avatar"
+                 class="user-avatar">
+        </a>
+    </div>
+</div>
+<div class="form-container">
+    <div class="form">
+        <h1>{{ option.test.name }}</h1>
+        <p>Вопрос {{ current_question_number }} из {{ total_questions }}</p>
+        <form method="post">
+            {% csrf_token %}
+            <p>{{ question.question }}</p>
+            {% for answer in answers %}
+                <div>
+                    <input type="radio" id="answer_{{ answer.id }}" name="user_answer" value="{{ answer.id }}">
+                    <label for="answer_{{ answer.id }}">{{ answer.possible_answer }}</label>
+                </div>
+            {% endfor %}
+            <button type="submit">Ответить</button>
+        </form>
+        <p class="remaining-time">Оставшееся время: {{ remaining_time }}</p>
+    </div>
+</div>
 </body>
 </html>

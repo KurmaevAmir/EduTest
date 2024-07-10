@@ -1,0 +1,154 @@
+body {
+    background-color: #F9F7F7;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    background-color: #3F72AF;
+    color: #ffffff;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 30px;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    width: 50px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.header-text {
+    font-size: 27px;
+    font-weight: 700;
+    color: #fff;
+    margin-right: 1570px;
+}
+
+.header-text:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-link {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+    }
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    transform: translateY(-50%);
+    right: 100px;
+}
+
+.user-links a {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 22px;
+    display: none;
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+.user-links a:nth-child(1) {
+    left: 325px;
+}
+
+.user-links a:nth-child(2) {
+    left: 480px;
+}
+
+.user-links a:hover,
+.constructor-link:hover {
+    text-decoration: none;
+    color: #DBE2EF;
+}
+
+#test-info {
+    text-align: left;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 100px;
+    position: absolute;
+    top: 40%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    min-height: 300px;
+}
+
+h1 {
+    margin-bottom: 30px;
+    font-size: 40px;
+}
+
+p {
+    line-height: 1.5;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.btn-start {
+    position: fixed;
+    bottom: -280px;
+    right: 330px;
+    margin: 40px;
+}
+
+.btn-send {
+    position: fixed;
+    bottom: -280px;
+    left: -580px;
+    margin: 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.btn-send a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-send a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+.btn[disabled] {
+    background-color: #ccc;
+}

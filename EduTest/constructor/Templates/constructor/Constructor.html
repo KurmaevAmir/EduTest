@@ -1,14 +1,46 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTest</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="shortcut icon" href="{% static 'constructor/mini-icon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'constructor/Constructor.css' %}">
 </head>
 <body>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Далее</button>
-</form>
+<div class="header">
+    <div class="container header-content">
+        <div class="logo-title">
+            <img src="{% static 'constructor/header.png' %}" alt="Лого" class="header-logo">
+            <a href={% url 'Main:home' %}>
+                <span class="header-text">EduTest</span>
+            </a>
+        </div>
+        <div class="user-links">
+            <a href="#">Тесты</a>
+        </div>
+        <a href="#">
+            <img id="userAvatar" src="{% static 'constructor/profileIcon-image.png' %}" alt="User Avatar"
+                 class="user-avatar">
+        </a>
+    </div>
+</div>
+<div class="content container">
+    <form class="test-form" method="post">
+        <div class="form-group">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-field">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-outline-primary">Далее</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

@@ -1,0 +1,156 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F9F7F7;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    background-color: #3F72AF;
+    color: #ffffff;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 30px;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    width: 50px;
+    height: auto;
+    margin-right: 5px;
+}
+
+ .header-text {
+     font-size: 27px;
+     font-weight: 700;
+     color:#fff;
+ }
+ .header-text:hover{
+     color: #fff;
+     text-decoration: none;
+ }
+
+.user-links {
+    display: flex;
+    align-items: center;
+    margin-left: -740px;
+}
+
+.user-links a {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+.user-links a:hover {
+    color: #DBE2EF;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    right: 100px;
+}
+
+.content {
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+.test-form{
+    margin-bottom: 20px;
+}
+.test-form.form-group {
+    margin-bottom: 20px;
+}
+
+.test-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: lighter;
+}
+
+.test-form input {
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 35px;
+    font-size: 16px;
+    margin-bottom: 20px ;
+}
+
+.test-form input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+
+.test-form button[type="submit"] {
+    color: #007bff;
+    border-color: #007bff;
+    background-color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+
+.test-form button[type="submit"]:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+.test-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #333;
+    overflow: visible;
+    white-space: normal;
+    margin-bottom: 20px;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+

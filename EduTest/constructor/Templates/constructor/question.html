@@ -1,20 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTest</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="shortcut icon" href="{% static 'constructor/mini-icon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'constructor/questionStyle.css' %}">
 </head>
 <body>
-<form method="post">
-    {% csrf_token %}
-    <h2>Question</h2>
-    {{ question_form.as_p }}
-    <h2>Answers</h2>
-    {{ answer_formset.management_form }}
-    {% for form in answer_formset %}
-        {{ form.as_p }}
-    {% endfor %}
-    <button type="submit">Добавить следующий вопрос</button>
-</form>
+<div class="header">
+    <div class="container header-content">
+        <div class="logo-title">
+            <img src="{% static 'constructor/header.png' %}" alt="Лого" class="header-logo">
+            <a href={% url 'Main:home' %}>
+                <span class="header-text">EduTest</span>
+            </a>
+        </div>
+        <div class="user-links">
+            <a href="#">Тесты</a>
+        </div>
+        <a href="#">
+            <img id="userAvatar" src="{% static 'constructor/profileIcon-image.png' %}" alt="User Avatar"
+                 class="user-avatar">
+        </a>
+    </div>
+</div>
+<div class="content">
+    <form method="post" class="test-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ question_form.as_p }}
+        </div>
+        {{ answer_formset.management_form }}
+        {% for form in answer_formset %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        {% endfor %}
+        <div class="buttons">
+            <button type="submit" class="btn submit-btn-outline-primary">Добавить следующий вопрос</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>
