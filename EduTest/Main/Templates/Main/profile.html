@@ -93,7 +93,7 @@
                 <tbody>
                     {% for test in tests %}
                         <tr>
-                            <td><a href="{% url 'Main:test_result' test.pk %}">{{ test.option.test.name }}</a></td>
+                            <td><a href="{% url 'Main:test_result' test.option.test.pk %}">{{ test.option.test.name }}</a></td>
                             <td>{{ test.option.start_time }}</td>
                             <td>{{ test.discipline.name }}</td>
                             <td>{{ test.option.test.teacher.user.get_full_name }}</td>
