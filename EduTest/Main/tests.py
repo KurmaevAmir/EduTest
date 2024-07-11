@@ -47,11 +47,11 @@ class MainModelsTest(TestCase):
         self.user1.groups.add(self.group_student)
         self.group_teacher = Group.objects.create(name=groups[1])
         self.user2.groups.add(self.group_teacher)
-        self.test1 = Test(name='test1', lead_time=time(1, 0, 0), max_score=1,
+        self.test1 = Test(name='test1', lead_time=time(1, 0, 0),
                           discipline=self.discipline1, teacher=self.profile1)
         self.test1.save()
         self.test1.questions.add(self.question1)
-        self.test2 = Test(name='test2', lead_time=time(2, 0, 0), max_score=2,
+        self.test2 = Test(name='test2', lead_time=time(2, 0, 0),
                           discipline=self.discipline2, teacher=self.profile2)
         self.test2.save()
         self.test2.questions.add(self.question2)
@@ -170,8 +170,6 @@ class MainModelsTest(TestCase):
         self.assertEqual(all_questions2[0].question, 'question2')
         self.assertEqual(all_tests[0].lead_time, time(1, 0, 0))
         self.assertEqual(all_tests[1].lead_time, time(2, 0, 0))
-        self.assertEqual(all_tests[0].max_score, 1)
-        self.assertEqual(all_tests[1].max_score, 2)
         self.assertEqual(all_tests[0].discipline.name, 'discipline1')
         self.assertEqual(all_tests[1].discipline.name, 'discipline2')
         self.assertEqual(all_tests[0].teacher.user.username, 'user1')
@@ -312,6 +310,7 @@ class HomePageViewTests(TestCase):
 class RegistrationForm(TestCase):
     def setUp(self):
         self.page = reverse('Main:registration')
+        Group.objects.create(name='Студент')
 
     def test_register_page_status_code(self):
         response = self.client.get(self.page)
@@ -346,7 +345,6 @@ class TestListViewTests(TestCase):
         self.test = Test.objects.create(
             name='Sample Test',
             lead_time='00:30:00',
-            max_score=100,
             discipline=self.discipline,
             teacher=self.profile
         )

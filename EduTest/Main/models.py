@@ -61,7 +61,6 @@ class Test(models.Model):
     name = models.CharField(verbose_name="название", max_length=150)
     questions = models.ManyToManyField(Question, verbose_name="вопросы", blank=True)
     lead_time = models.TimeField(verbose_name="время выполнения")
-    max_score = models.IntegerField(verbose_name="количество баллов", default=0)
     discipline = models.ForeignKey(Discipline, verbose_name="дисциплина", on_delete=models.CASCADE)
     teacher = models.ForeignKey(Profile, verbose_name="преподаватель", on_delete=models.CASCADE)
 

@@ -68,7 +68,7 @@ class TestResultAdmin(admin.ModelAdmin):
 
 @admin.register(Test)
 class TestAdmin(admin.ModelAdmin):
-    fields = ['name', 'questions', 'discipline', 'teacher', 'lead_time', 'max_score']
+    fields = ['name', 'questions', 'discipline', 'teacher', 'lead_time']
     autocomplete_fields = ['questions']
-    list_display = ['name', 'discipline', 'teacher', 'max_score']
+    list_display = ['name', 'discipline', 'teacher']
     search_fields = ['name', 'discipline__name', 'teacher__user__first_name', 'teacher__user__last_name']

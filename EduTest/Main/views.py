@@ -1,3 +1,4 @@
+import datetime
 import random
 
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,8 +11,10 @@ from .forms import AnswerForm, TestAssignmentSelectForm, LoginForm, Registration
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from constructor.views import UserAccessMixin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+
+
 # Create your views here.
 
 
@@ -70,6 +73,8 @@ class TestDescriptionView(DetailView):
         context['access'] = 2 if self.request.user.groups.filter(
             name__in=['Преподаватель', 'Администратор']).exists() else 1 if self.request.user.groups.filter(
             name__in=['Студент']).exists() else 0
+        context['score'] = sum(
+            [question.score for question in Test.objects.filter(id=self.kwargs['pk']).first().questions.all()])
         return context
 
     def post(self, request, *args, **kwargs):
@@ -168,18 +173,26 @@ class TestResultView(DetailView):
         total_score = sum(answer.score for answer in test_answers)
         max_score = sum(question.score for question in option.questions.all())
         test_percentage = int((total_score / max_score) * 100) if max_score > 0 else 0
-
-        test_result, created = TestResult.objects.update_or_create(
-            option=option,
-            defaults={
-                'score': total_score,
-                'discipline': option.test.discipline,
-                'lead_time': option.test.lead_time,
-                'test_percentage': test_percentage
-            }
-        )
+        execution_time = timezone.now() - option.start_time
+        max_lead_time = option.test.lead_time
+        lead_time_timedelta = datetime.timedelta(hours=max_lead_time.hour, minutes=max_lead_time.minute)
+        lead_time = min(lead_time_timedelta, execution_time)
+        lead_time_seconds = int(lead_time.total_seconds())
+        lead_time_hours = lead_time_seconds // 3600
+        lead_time_minutes = (lead_time_seconds % 3600) // 60
+        lead_time = datetime.time(lead_time_hours, lead_time_minutes)
+        if not TestResult.objects.filter(option=option).exists():
+            test_result = TestResult.objects.create(
+                option=option,
+                score=total_score,
+                discipline=option.test.discipline,
+                lead_time=lead_time,
+                test_percentage=test_percentage
+            )
+            test_result.save()
 
         context.update({
+            'lead_time': lead_time,
             'test_answers': test_answers,
             'total_score': total_score,
             'max_score': max_score,
@@ -227,8 +240,11 @@ class RegistrationView(FormView):
             last_name=form.cleaned_data['last_name'],
             password=form.cleaned_data['password']
         )
+        group = Group.objects.get(name='Студент')
+        user.groups.add(group)
         profile = Profile.objects.create(user=user)
-        educational_group, created = EducationalGroup.objects.update_or_create(number_group=form.cleaned_data['education_group'])
+        educational_group, created = EducationalGroup.objects.update_or_create(
+            number_group=form.cleaned_data['education_group'])
         if not created:
             educational_group.save()
         educational_group.user.add(profile)

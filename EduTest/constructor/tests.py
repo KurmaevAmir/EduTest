@@ -44,7 +44,7 @@ class TestUpdateViewTest(TestCase):
         self.user.groups.add(self.group)
         self.client.login(username='teacher', password='password')
         self.discipline = Discipline.objects.create(name='Математика')
-        self.test = Test.objects.create(name='Test 1', discipline=self.discipline, lead_time='01:00:00', max_score=100,
+        self.test = Test.objects.create(name='Test 1', discipline=self.discipline, lead_time='01:00:00',
                                         teacher=self.profile)
         self.question = Question.objects.create(question='Sample Question?', score=5)
         self.test.questions.add(self.question)
@@ -124,7 +124,7 @@ class QuestionCreateViewTest(TestCase):
         self.user.groups.add(self.group)
         self.client.login(username='teacher', password='password')
         self.discipline = Discipline.objects.create(name="Математика")
-        self.test = Test.objects.create(name='Test 1', discipline=self.discipline, lead_time='01:00:00', max_score=100,
+        self.test = Test.objects.create(name='Test 1', discipline=self.discipline, lead_time='01:00:00',
                                         teacher=self.profile)
 
     def test_question_create_view(self):
@@ -161,7 +161,8 @@ class QuestionUpdateViewTest(TestCase):
         self.user.groups.add(self.group)
         self.client.login(username='teacher', password='password')
         self.discipline = Discipline.objects.create(name="Математика")
-        self.test = Test.objects.create(name='Test 1', discipline=self.discipline, lead_time='01:00:00', max_score=100, teacher=self.profile)
+        self.test = Test.objects.create(name='Test 1', discipline=self.discipline, lead_time='01:00:00',
+                                        teacher=self.profile)
         self.question = Question.objects.create(question='Sample Question?', score=5)
         self.answer = Answer.objects.create(possible_answer='Answer 1', correctness=True)
         self.question.answers.add(self.answer)
