@@ -36,7 +36,11 @@
     {% endif %}
     <form method="post">
         {% csrf_token %}
+        <button type="button" class="btn btn-outline btn-change" id ='changeButton'>
+                <a href={% url 'constructor:test_update' test.pk %}>Изменить</a>
+            </button>
         <button type="submit" id="startButton" class="btn btn-primary btn-start">Начать тестирование</button>
+
     </form>
     <h1>{{ test.name }}</h1>
     <p>Дисциплина: {{ test.discipline.name }}</p>
@@ -56,14 +60,17 @@
             const testsLink = document.getElementById('testsLink');
             const constructorLink = document.getElementById('constructorLink');
             const startButton = document.getElementById('startButton');
+            const changeButton = document.getElementById('changeButton');
 
             testsLink.style.display = 'inline-block';
             testsLink.href = userAccessLevel === 1 ? testsUrlForStudents : testsUrlForNonStudents;
 
             if (userAccessLevel >= 2) {
                 constructorLink.style.display = 'inline-block';
+                changeButton.style.display ='inline-block'
             } else {
                 constructorLink.style.display = 'none';
+                changeButton.style.display ='none'
             }
             if (userAccessLevel >= 1) {
                 startButton.style.display = 'inline-block';

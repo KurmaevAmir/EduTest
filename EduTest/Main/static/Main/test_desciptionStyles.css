@@ -137,6 +137,18 @@ p {
     border-radius: 5px;
 }
 
+.btn-primary .btn-change  {
+    position: fixed;
+    bottom: -280px;
+    left: -580px;
+    margin: 40px;
+    background-color: #777777;
+    color: #fff;
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+}
+
 .btn-send a {
     color: #fff;
     text-decoration: none;
@@ -146,8 +158,6 @@ p {
     color: #fff;
     text-decoration: none;
 }
-
-
 
 .btn[disabled] {
     background-color: #ccc;
