@@ -118,8 +118,8 @@ class TestAnswer(models.Model):
         return str(self.option_question_number) + " " + self.option.test.name
 
     class Meta:
-        verbose_name = 'ответ на вопрос'
-        verbose_name_plural = 'ответы на вопросы'
+        verbose_name = 'ответ студента на вопрос'
+        verbose_name_plural = 'ответы студента на вопросы'
 
 
 class EducationalGroup(models.Model):
